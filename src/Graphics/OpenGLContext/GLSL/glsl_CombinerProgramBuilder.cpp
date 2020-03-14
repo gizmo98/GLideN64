@@ -1159,10 +1159,10 @@ public:
 				break;
 				}
 				shaderPart +=
-					"#define POINTSAMPLINGAA( name,tex, texCoord)						\\\n"
+					"#define POINTSAMPLINGAA( name, tex, texCoord)						\\\n"
 					"  {																\\\n"
 					"  vec2 res = vec2(textureSize(tex,0));								\\\n" 
-					"  highp vec2 uv = texCoord;										\\\n" 
+					"  vec2 uv = texCoord;												\\\n" 
 					"  uv *= res;														\\\n"
 					"  uv = (clamp(fract(uv) / clamp(fwidth(uv), 0.0, 1.0), 0.0, 1.0) + floor(uv) - 0.5) / res;\\\n"
 					"  vec2 st = uv*res - 0.5;											\\\n"
@@ -1174,13 +1174,15 @@ public:
 					"  vec4 d = texture( tex, (iuv+vec2(1.5,1.5))/res );				\\\n"
 					"  name = mix( mix( a, b, fuv.x),mix( c, d, fuv.x), fuv.y );		\\\n"
 					"  }																\n"
+					;
+				shaderPart +=
 					"#define READ_TEX(name, tex, texCoord, fbMonochrome, fbFixedAlpha)	\\\n"
 					"  {																\\\n"
 					"  if (fbMonochrome == 3) {											\\\n"
 					"    mediump ivec2 coord = ivec2(gl_FragCoord.xy);					\\\n"
 					"    name = texelFetch(tex, coord, 0);								\\\n"
 					"  } else {															\\\n"
-					"    if (uTextureFilterMode == 0) POINTSAMPLINGAA(name, tex, texCoord);\\\n"
+					"    if (uTextureFilterMode == 0) {POINTSAMPLINGAA(name, tex, texCoord)}\\\n"
 					"    else TEX_FILTER(name, tex, texCoord);			 				\\\n"
 					"  }																\\\n"
 					"  if (fbMonochrome == 1) name = vec4(name.r);						\\\n"
