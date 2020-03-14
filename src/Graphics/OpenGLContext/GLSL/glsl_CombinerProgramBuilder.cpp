@@ -1159,17 +1159,12 @@ public:
 				break;
 				}
 				shaderPart +=
-					"#define SATURATE(x) clamp(x, 0.0, 1.0)								\n"
-					"#define MAGNIFY(uv, res) 											\\\n"
-					"  {																\\\n"
-					"  uv *= res;														\\\n"
-					"  uv = (SATURATE(fract(uv) / SATURATE(fwidth(uv))) + floor(uv) - 0.5) / res; \\\n"
-					"  }																\n"
 					"#define POINTSAMPLINGAA( name,tex, texCoord)						\\\n"
 					"  {																\\\n"
 					"  vec2 res = vec2(textureSize(tex,0));								\\\n" 
-					"  vec2 uv = texCoord;												\\\n" 
-					"  MAGNIFY(uv, res);												\\\n"
+					"  highp vec2 uv = texCoord;										\\\n" 
+					"  uv *= res;														\\\n"
+					"  uv = (clamp(fract(uv) / clamp(fwidth(uv), 0.0, 1.0), 0.0, 1.0) + floor(uv) - 0.5) / res;\\\n"
 					"  vec2 st = uv*res - 0.5;											\\\n"
 					"  vec2 iuv = floor( st );											\\\n"
 					"  vec2 fuv = fract( st );											\\\n"
