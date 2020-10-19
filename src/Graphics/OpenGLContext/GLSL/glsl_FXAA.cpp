@@ -60,10 +60,8 @@ FXAAVertexShader::FXAAVertexShader(const opengl::GLInfo & _glinfo)
 		"                                                         \n"
 		"//texcoords computed in vertex step                      \n"
 		"//to avoid dependent texture reads                       \n"
-		"OUT vec2 v_rgbNW;                                        \n"
-		"OUT vec2 v_rgbNE;                                        \n"
-		"OUT vec2 v_rgbSW;                                        \n"
-		"OUT vec2 v_rgbSE;                                        \n"
+		"OUT vec2 v_rgbL;                                         \n"
+		"OUT vec2 v_rgbR;                                         \n"
 		"OUT vec2 v_rgbM;                                         \n"
 		"                                                         \n"
 		"uniform vec2 uTextureSize;                               \n"
@@ -76,8 +74,8 @@ FXAAVertexShader::FXAAVertexShader(const opengl::GLInfo & _glinfo)
 		"  vec2 vUv = (aRectPosition.xy + 1.0) * 0.5;             \n"
 		"  vec2 fragCoord = vUv * uTextureSize;                   \n"
 		"  vec2 inverseVP = vec2(1.0) / uTextureSize;             \n"
-		"  v_rgbL = (fragCoord + vec2(-1.0, 0.0)) * inverseVP;  \n"
-		"  v_rgbR = (fragCoord + vec2(1.0, 0.0)) * inverseVP;   \n"
+		"  v_rgbL = (fragCoord + vec2(-1.0, 0.0)) * inverseVP;    \n"
+		"  v_rgbR = (fragCoord + vec2(1.0, 0.0)) * inverseVP;     \n"
 		"  v_rgbM = vec2(fragCoord * inverseVP);                  \n"
 		"}                                                        \n"
 		;
@@ -98,6 +96,6 @@ FXAAFragmentShader::FXAAFragmentShader(const opengl::GLInfo & _glinfo)
 		"OUT lowp vec4 fragColor;                                                        \n"
 		"                                                                                \n"
 		"void main() {                                                                   \n"
-		"  fragColor = texture2D(uTex0, v_rgbL).xyz * 0.25 + texture2D(uTex0, v_rgbM).xyz * 0.5 + texture2D(uTex0, v_rgbR).xyz * 0.25;\n"
+		"  fragColor = texture2D(uTex0, v_rgbL) * 0.25 + texture2D(uTex0, v_rgbM) * 0.5 + texture2D(uTex0, v_rgbR) * 0.25;\n"
 		;
 }
