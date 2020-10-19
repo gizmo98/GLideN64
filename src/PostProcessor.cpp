@@ -5,6 +5,7 @@
 #include "PostProcessor.h"
 #include "FrameBuffer.h"
 #include "Config.h"
+#include "VI.h"
 
 #include <Graphics/Context.h>
 #include <Graphics/Parameters.h>
