@@ -13,10 +13,10 @@
 #define VI_STATUS_DITHER_FILTER_ENABLED  0x010000
 
 // AA modes
-#define AA_MODE_AA_RESAMPLE_ALWAYS_FETCH 0    /* Always fetch lines */
-#define AA_MODE_AA_RESAMPLE              1    /* Fetch extra line if needed */
-#define AA_MODE_RESAMPLE_ONLY            2
-#define AA_MODE_NEITHER                  3    /* Replicate pixels, no interpolation */
+#define AA_MODE_AA_RESAMPLE_ALWAYS_FETCH 0x000000    /* Always fetch lines */
+#define AA_MODE_AA_RESAMPLE              0x000100    /* Fetch extra line if needed */
+#define AA_MODE_RESAMPLE_ONLY            0x000200
+#define AA_MODE_NEITHER                  0x000300    /* Replicate pixels, no interpolation */
 
 struct VIInfo
 {
