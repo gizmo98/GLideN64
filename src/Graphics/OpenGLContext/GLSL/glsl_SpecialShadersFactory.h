@@ -42,6 +42,8 @@ namespace glsl {
 
 		graphics::ShaderProgram * createFXAAShader() const;
 
+		graphics::ShaderProgram * createDitherFilterShader() const;
+
 		graphics::TextDrawerShaderProgram * createTextDrawerShader() const;
 
 	private:
