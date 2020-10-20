@@ -138,6 +138,8 @@ namespace opengl {
 
 		graphics::ShaderProgram * createFXAAShader() override;
 
+		graphics::ShaderProgram * createDitherFilterShader() override;
+
 		graphics::TextDrawerShaderProgram * createTextDrawerShader() override;
 
 		void resetShaderProgram() override;

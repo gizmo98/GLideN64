@@ -322,6 +322,11 @@ ShaderProgram * Context::createFXAAShader()
 	return m_impl->createFXAAShader();
 }
 
+ShaderProgram * Context::createDitherFilterShader()
+{
+	return m_impl->createDitherFilterShader();
+}
+
 TextDrawerShaderProgram * Context::createTextDrawerShader()
 {
 	return m_impl->createTextDrawerShader();

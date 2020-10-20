@@ -72,6 +72,8 @@ void PostProcessor::init()
 		m_FXAAProgram.reset(gfxContext.createFXAAShader());
 		m_postprocessingList.emplace_front(std::mem_fn(&PostProcessor::_doFXAA));
 	}
+	m_DitherFilterProgram.reset(gfxContext.createDitherFilterShader());
+	m_postprocessingList.emplace_front(std::mem_fn(&PostProcessor::_doDitherFilter));
 	if (config.generalEmulation.enableBlitScreenWorkaround != 0) {
 		m_orientationCorrectionProgram.reset(gfxContext.createOrientationCorrectionShader());
 		m_postprocessingList.emplace_front(std::mem_fn(&PostProcessor::_doOrientationCorrection));
@@ -183,4 +185,15 @@ FrameBuffer * PostProcessor::_doFXAA(FrameBuffer * _pBuffer)
 		return _pBuffer;
 
 	return _doPostProcessing(_pBuffer, m_FXAAProgram.get());
+}
+
+FrameBuffer * PostProcessor::_doDitherFilter(FrameBuffer * _pBuffer)
+{
+	if (_pBuffer == nullptr)
+		return nullptr;
+
+	if ((*REG.VI_STATUS & VI_STATUS_DITHER_FILTER_ENABLED) == 0)
+		return _pBuffer;
+
+	return _doPostProcessing(_pBuffer, m_DitherFilterProgram.get());
 }

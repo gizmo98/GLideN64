@@ -250,6 +250,8 @@ namespace graphics {
 
 		ShaderProgram * createFXAAShader();
 
+		ShaderProgram * createDitherFilterShader();
+
 		TextDrawerShaderProgram * createTextDrawerShader();
 
 		void resetShaderProgram();

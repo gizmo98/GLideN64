@@ -460,6 +460,11 @@ graphics::ShaderProgram * ContextImpl::createFXAAShader()
 	return m_specialShadersFactory->createFXAAShader();
 }
 
+graphics::ShaderProgram * ContextImpl::createDitherFilterShader()
+{
+	return m_specialShadersFactory->createDitherFilterShader();
+}
+
 graphics::TextDrawerShaderProgram * ContextImpl::createTextDrawerShader()
 {
 	return m_specialShadersFactory->createTextDrawerShader();
