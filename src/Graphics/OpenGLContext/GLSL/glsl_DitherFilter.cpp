@@ -45,6 +45,6 @@ DitherFilterFragmentShader::DitherFilterFragmentShader(const opengl::GLInfo & _g
 		"OUT lowp vec4 fragColor;                                                        \n"
 		"                                                                                \n"
 		"void main() {                                                                   \n"
-		"  fragColor = texture2D(uTex0, v_rgbL) * 0.25 + texture2D(uTex0, v_rgbM) * 0.5 + texture2D(uTex0, v_rgbR) * 0.25;\n"
+		"  fragColor = texture2D(uTex0, v_rgbL) * 0.2 + texture2D(uTex0, v_rgbM) * 0.6 + texture2D(uTex0, v_rgbR) * 0.2;\n"
 		;
 }
