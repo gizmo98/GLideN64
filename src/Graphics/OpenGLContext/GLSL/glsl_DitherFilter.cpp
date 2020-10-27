@@ -9,8 +9,8 @@ DitherFilterVertexShader::DitherFilterVertexShader(const opengl::GLInfo & _glinf
 		"                                                         \n"
 		"//texcoords computed in vertex step                      \n"
 		"//to avoid dependent texture reads                       \n"
-		"OUT vec2 v_rgbL;                                         \n"
-		"OUT vec2 v_rgbR;                                         \n"
+		"OUT vec2 v_rgbT;                                         \n"
+		"OUT vec2 v_rgbB;                                         \n"
 		"OUT vec2 v_rgbM;                                         \n"
 		"                                                         \n"
 		"uniform vec2 uTextureSize;                               \n"
@@ -23,8 +23,8 @@ DitherFilterVertexShader::DitherFilterVertexShader(const opengl::GLInfo & _glinf
 		"  vec2 vUv = (aRectPosition.xy + 1.0) * 0.5;             \n"
 		"  vec2 fragCoord = vUv * uTextureSize;                   \n"
 		"  vec2 inverseVP = vec2(1.0) / uTextureSize;             \n"
-		"  v_rgbL = (fragCoord + vec2(-1.0, 0.0)) * inverseVP;    \n"
-		"  v_rgbR = (fragCoord + vec2(1.0, 0.0)) * inverseVP;     \n"
+		"  v_rgbT = (fragCoord + vec2(0.0, -1.0)) * inverseVP;    \n"
+		"  v_rgbB = (fragCoord + vec2(0.0, 1.0)) * inverseVP;     \n"
 		"  v_rgbM = vec2(fragCoord * inverseVP);                  \n"
 		"}                                                        \n"
 		;
@@ -35,8 +35,8 @@ DitherFilterFragmentShader::DitherFilterFragmentShader(const opengl::GLInfo & _g
 	m_part =
 		"                                                                                \n"
 		"precision mediump float;                                                        \n"
-		"IN vec2 v_rgbL;                                                                 \n"
-		"IN vec2 v_rgbR;                                                                 \n"
+		"IN vec2 v_rgbT;                                                                 \n"
+		"IN vec2 v_rgbB;                                                                 \n"
 		"IN vec2 v_rgbM;                                                                 \n"
 		"                                                                                \n"
 		"uniform vec2 uTextureSize;                                                      \n"
@@ -45,6 +45,6 @@ DitherFilterFragmentShader::DitherFilterFragmentShader(const opengl::GLInfo & _g
 		"OUT lowp vec4 fragColor;                                                        \n"
 		"                                                                                \n"
 		"void main() {                                                                   \n"
-		"  fragColor = texture2D(uTex0, v_rgbL) * 0.2 + texture2D(uTex0, v_rgbM) * 0.6 + texture2D(uTex0, v_rgbR) * 0.2;\n"
+		"  fragColor = texture2D(uTex0, v_rgbT) * 0.2 + texture2D(uTex0, v_rgbM) * 0.6 + texture2D(uTex0, v_rgbB) * 0.2;\n"
 		;
 }
