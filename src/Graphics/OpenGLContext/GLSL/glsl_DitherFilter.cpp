@@ -62,6 +62,6 @@ DitherFilterFragmentShader::DitherFilterFragmentShader(const opengl::GLInfo & _g
 		"                                                                                \n"
 		"  col += colM * 0.5;                                                            \n"
 		"                                                                                \n"
-		"  fragColor = vec4(col.r,col.g,col.b,colM.a);                                   \n"
+		"  fragColor = vec4(col.r,col.g,col.b,1.0);                                      \n"
 		;
 }
