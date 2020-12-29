@@ -192,7 +192,7 @@ FrameBuffer * PostProcessor::_doDitherFilter(FrameBuffer * _pBuffer)
 	if (_pBuffer == nullptr)
 		return nullptr;
 
-	if ((*REG.VI_STATUS & VI_STATUS_DITHER_FILTER_ENABLED) == 0 | config.generalEmulation.enableDitherFilter == 0 )
+	if (!((*REG.VI_STATUS & VI_STATUS_DITHER_FILTER_ENABLED) == VI_STATUS_DITHER_FILTER_ENABLED && config.generalEmulation.enableDitherFilter))
 		return _pBuffer;
 
 	return _doPostProcessing(_pBuffer, m_DitherFilterProgram.get());
