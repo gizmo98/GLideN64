@@ -247,6 +247,8 @@ namespace graphics {
 
 		ShaderProgram * createGammaCorrectionShader();
 
+		ShaderProgram * createDitherFilterShader();
+
 		ShaderProgram * createFXAAShader();
 
 		TextDrawerShaderProgram * createTextDrawerShader();

@@ -44,6 +44,7 @@ void _loadSettings(QSettings & settings)
 	config.generalEmulation.enableDitheringPattern = settings.value("enableDitheringPattern", config.generalEmulation.enableDitheringPattern).toInt();
 	config.generalEmulation.enableDitheringQuantization = settings.value("enableDitheringQuantization", config.generalEmulation.enableDitheringQuantization).toInt();
 	config.generalEmulation.enableHiresNoiseDithering = settings.value("enableHiresNoiseDithering", config.generalEmulation.enableHiresNoiseDithering).toInt();
+config.generalEmulation.enableDitherFilter = settings.value("enableDitherFilter", config.generalEmulation.enableDitherFilter).toInt();
 	config.generalEmulation.rdramImageDitheringMode = settings.value("rdramImageDitheringMode", config.generalEmulation.rdramImageDitheringMode).toInt();
 	config.generalEmulation.enableLOD = settings.value("enableLOD", config.generalEmulation.enableLOD).toInt();
 	config.generalEmulation.enableHWLighting = settings.value("enableHWLighting", config.generalEmulation.enableHWLighting).toInt();
@@ -229,6 +230,7 @@ void writeSettings(const QString & _strIniFolder)
 	settings.setValue("enableDitheringPattern", config.generalEmulation.enableDitheringPattern);
 	settings.setValue("enableDitheringQuantization", config.generalEmulation.enableDitheringQuantization);
 	settings.setValue("enableHiresNoiseDithering", config.generalEmulation.enableHiresNoiseDithering);
+	settings.setValue("enableDitherFilter", config.generalEmulation.enableDitherFilter);
 	settings.setValue("rdramImageDitheringMode", config.generalEmulation.rdramImageDitheringMode);
 	settings.setValue("enableLOD", config.generalEmulation.enableLOD);
 	settings.setValue("enableHWLighting", config.generalEmulation.enableHWLighting);
@@ -432,6 +434,7 @@ void saveCustomRomSettings(const QString & _strIniFolder, const char * _strRomNa
 	WriteCustomSetting(generalEmulation, enableDitheringPattern);
 	WriteCustomSetting(generalEmulation, enableDitheringQuantization);
 	WriteCustomSetting(generalEmulation, enableHiresNoiseDithering);
+	WriteCustomSetting(generalEmulation, enableDitherFilter);
 	WriteCustomSetting(generalEmulation, rdramImageDitheringMode);
 	WriteCustomSetting(generalEmulation, enableLOD);
 	WriteCustomSetting(generalEmulation, enableHWLighting);

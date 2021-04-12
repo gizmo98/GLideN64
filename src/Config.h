@@ -5,7 +5,7 @@
 #include "Types.h"
 
 #define CONFIG_WITH_PROFILES 23U
-#define CONFIG_VERSION_CURRENT 29U
+#define CONFIG_VERSION_CURRENT 30U
 
 #define BILINEAR_3POINT   0
 #define BILINEAR_STANDARD 1
@@ -57,6 +57,7 @@ struct Config
 		u32 enableDitheringPattern;
 		u32 enableDitheringQuantization;
 		u32 enableHiresNoiseDithering;
+		u32 enableDitherFilter;
 		u32 rdramImageDitheringMode;
 		u32 enableLOD;
 		u32 enableHWLighting;

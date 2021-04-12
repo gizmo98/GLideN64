@@ -457,6 +457,11 @@ graphics::ShaderProgram * ContextImpl::createGammaCorrectionShader()
 	return m_specialShadersFactory->createGammaCorrectionShader();
 }
 
+graphics::ShaderProgram * ContextImpl::createDitherFilterShader()
+{
+	return m_specialShadersFactory->createDitherFilterShader();
+}
+
 graphics::ShaderProgram * ContextImpl::createFXAAShader()
 {
 	return m_specialShadersFactory->createFXAAShader();

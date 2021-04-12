@@ -548,6 +548,38 @@ namespace glsl {
 		}
 	};
 
+	class DitherFilter : public ShaderPart
+	{
+	public:
+		DitherFilter(const opengl::GLInfo & _glinfo)
+		{
+			m_part =
+				"IN mediump vec2 vTexCoord0;							\n"
+				"uniform sampler2D uTex0;								\n"
+				"OUT lowp vec4 fragColor;								\n"
+				"void main ( )											\n"
+				"{														\n"
+				"    vec2 res = textureSize( uTex0 ).xy;				\n"
+				"														\n"
+				"    // Normalized pixel coordinates (from 0 to 1)		\n"
+				"    vec2 uv = vTexCoord0/res;							\n"
+				"														\n"
+				"    vec2 st = uv*res - 0.5;							\n"
+				"														\n"
+				"    vec2 iuv = floor( st );							\n"
+				"    vec2 fuv = fract( st );							\n"
+				"														\n"
+				"    vec4 a = texture( iChannel0, (iuv+vec2(0.5,0.5))/res );\n"
+				"    vec4 b = texture( iChannel0, (iuv+vec2(1.5,0.5))/res );\n"
+				"    vec4 c = texture( iChannel0, (iuv+vec2(0.5,1.5))/res );\n"
+				"    vec4 d = texture( iChannel0, (iuv+vec2(1.5,1.5))/res );\n"
+				"														\n"
+				"    fragColor = (a + b + c + d) / 4.0;					\n"
+				;
+		}
+	};
+
+
 	/*---------------TextDrawerShaderPart-------------*/
 
 	class TextDraw : public ShaderPart
@@ -889,6 +921,27 @@ namespace glsl {
 			assert(levelLoc >= 0);
 			const f32 gammaLevel = (config.gammaCorrection.force != 0) ? config.gammaCorrection.level : 2.0f;
 			glUniform1f(levelLoc, gammaLevel);
+			m_useProgram->useProgram(graphics::ObjectHandle::null);
+		}
+	};
+
+	/*---------------DitherFilterShader-------------*/
+
+	typedef SpecialShader<VertexShaderTexturedRect, DitherFilter> DitherFilterShaderBase;
+
+	class DitherFilterShader : public DitherFilterShaderBase
+	{
+	public:
+		DitherFilterShader(const opengl::GLInfo & _glinfo,
+			opengl::CachedUseProgram * _useProgram,
+			const ShaderPart * _vertexHeader,
+			const ShaderPart * _fragmentHeader,
+			const ShaderPart * _fragmentEnd)
+			: DitherFilterShaderBase(_glinfo, _useProgram, _vertexHeader, _fragmentHeader, _fragmentEnd)
+		{
+			m_useProgram->useProgram(m_program);
+			const int texLoc = glGetUniformLocation(GLuint(m_program), "uTex0");
+			glUniform1i(texLoc, 0);
 			m_useProgram->useProgram(graphics::ObjectHandle::null);
 		}
 	};

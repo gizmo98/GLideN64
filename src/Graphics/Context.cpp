@@ -314,6 +314,11 @@ ShaderProgram * Context::createGammaCorrectionShader()
 	return m_impl->createGammaCorrectionShader();
 }
 
+ShaderProgram * Context::createDitherFilterShader()
+{
+	return m_impl->createDitherFilterShader();
+}
+
 ShaderProgram * Context::createFXAAShader()
 {
 	return m_impl->createFXAAShader();

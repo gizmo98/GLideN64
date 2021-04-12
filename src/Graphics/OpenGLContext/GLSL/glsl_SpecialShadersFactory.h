@@ -36,6 +36,8 @@ namespace glsl {
 
 		graphics::ShaderProgram * createTexrectColorAndDepthDownscaleCopyShader() const;
 
+		graphics::ShaderProgram * createDitherFilterShader() const;
+
 		graphics::ShaderProgram * createGammaCorrectionShader() const;
 
 		graphics::ShaderProgram * createFXAAShader() const;

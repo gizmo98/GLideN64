@@ -43,6 +43,7 @@ void Config::resetToDefaults()
 	generalEmulation.enableHiresNoiseDithering = 0;
 	generalEmulation.enableDitheringPattern = 0;
 	generalEmulation.enableDitheringQuantization = 1;
+	generalEmulation.enableDitherFilter = 0;
 	generalEmulation.rdramImageDitheringMode = BufferDitheringMode::bdmBlueNoise;
 	generalEmulation.enableHWLighting = 0;
 	generalEmulation.enableCoverage = 0;

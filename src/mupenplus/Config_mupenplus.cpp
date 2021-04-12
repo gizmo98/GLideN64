@@ -143,6 +143,8 @@ bool Config_SetDefault()
 	assert(res == M64ERR_SUCCESS);
 	res = ConfigSetDefaultBool(g_configVideoGliden64, "DitheringQuantization", config.generalEmulation.enableDitheringQuantization, "Dither with color quantization.");
 	assert(res == M64ERR_SUCCESS);
+	res = ConfigSetDefaultBool(g_configVideoGliden64, "EnableDitherFilter", config.generalEmulation.enableDitherFilter, "Enable vi dither filter.");
+	assert(res == M64ERR_SUCCESS);
 	res = ConfigSetDefaultInt(g_configVideoGliden64, "RDRAMImageDitheringMode", config.generalEmulation.rdramImageDitheringMode, "Dithering mode for image in RDRAM. (0=disable, 1=bayer, 2=magic square, 3=blue noise)");
 	assert(res == M64ERR_SUCCESS);
 	res = ConfigSetDefaultBool(g_configVideoGliden64, "EnableLOD", config.generalEmulation.enableLOD, "Enable LOD emulation.");
@@ -360,6 +362,8 @@ void Config_LoadCustomConfig()
 	if (result == M64ERR_SUCCESS) config.generalEmulation.enableHiresNoiseDithering = atoi(value);
 	result = ConfigExternalGetParameter(fileHandle, sectionName, "generalEmulation\\enableDitheringQuantization", value, sizeof(value));
 	if (result == M64ERR_SUCCESS) config.generalEmulation.enableDitheringQuantization = atoi(value);
+	result = ConfigExternalGetParameter(fileHandle, sectionName, "generalEmulation\\enableDitherFilter", value, sizeof(value));
+	if (result == M64ERR_SUCCESS) config.generalEmulation.enableDitherFilter = atoi(value);
 	result = ConfigExternalGetParameter(fileHandle, sectionName, "generalEmulation\\rdramImageDitheringMode", value, sizeof(value));
 	if (result == M64ERR_SUCCESS) config.generalEmulation.rdramImageDitheringMode = atoi(value);
 	result = ConfigExternalGetParameter(fileHandle, sectionName, "generalEmulation\\enableLOD", value, sizeof(value));
@@ -489,6 +493,7 @@ void Config_LoadConfig()
 	config.generalEmulation.enableDitheringPattern = ConfigGetParamBool(g_configVideoGliden64, "EnableDitheringPattern");
 	config.generalEmulation.enableHiresNoiseDithering = ConfigGetParamBool(g_configVideoGliden64, "EnableHiresNoiseDithering");
 	config.generalEmulation.enableDitheringQuantization = ConfigGetParamBool(g_configVideoGliden64, "DitheringQuantization");
+	config.generalEmulation.enableDitherFilter = ConfigGetParamBool(g_configVideoGliden64, "EnableDitherFilter");
 	config.generalEmulation.rdramImageDitheringMode = ConfigGetParamInt(g_configVideoGliden64, "RDRAMImageDitheringMode");
 
 	config.generalEmulation.enableLOD = ConfigGetParamBool(g_configVideoGliden64, "EnableLOD");
