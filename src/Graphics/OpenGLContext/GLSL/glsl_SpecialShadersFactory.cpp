@@ -559,7 +559,7 @@ namespace glsl {
 				"OUT lowp vec4 fragColor;								\n"
 				"void main ()											\n"
 				"{														\n"
-				"    vec2 res = textureSize( uTex0 , 0 ).xy;				\n"
+				"    vec2 res = vec2(textureSize( uTex0 , 0 ));			\n"
 				"														\n"
 				"    // Normalized pixel coordinates (from 0 to 1)		\n"
 				"    vec2 uv = vTexCoord0/res;							\n"
