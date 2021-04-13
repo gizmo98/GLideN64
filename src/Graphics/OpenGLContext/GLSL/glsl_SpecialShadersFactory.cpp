@@ -1042,6 +1042,14 @@ namespace glsl {
 		return new GammaCorrectionShader(m_glinfo, m_useProgram, m_vertexHeader, m_fragmentHeader, m_fragmentEnd);
 	}
 
+	graphics::ShaderProgram * SpecialShadersFactory::createDitherFilterShader() const
+	{
+		if (m_glinfo.isGLES2)
+			return nullptr;
+
+		return new DitherFilterShader(m_glinfo, m_useProgram, m_vertexHeader, m_fragmentHeader, m_fragmentEnd);
+	}
+	
 	graphics::ShaderProgram * SpecialShadersFactory::createFXAAShader() const
 	{
 		return new FXAAShader(m_glinfo, m_useProgram, m_vertexHeader, m_fragmentHeader, m_fragmentEnd);
