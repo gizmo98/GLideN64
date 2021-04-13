@@ -562,7 +562,7 @@ namespace glsl {
 				"    mediump vec2 res = vec2(textureSize( uTex0 , 0 ));	\n"
 				"														\n"
 				"    // Normalized pixel coordinates (from 0 to 1)		\n"
-				"    mediump vec2 uv = vTexCoord0/res;					\n"
+				"    mediump vec2 uv = vTexCoord0;					\n"
 				"														\n"
 				"    mediump vec2 st = uv*res - 0.5;					\n"
 				"														\n"
