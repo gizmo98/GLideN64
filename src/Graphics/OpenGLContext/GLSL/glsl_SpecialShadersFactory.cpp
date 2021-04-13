@@ -573,7 +573,8 @@ namespace glsl {
 				"    lowp vec4 c = texture2D( uTex0, (iuv+vec2(0.5,1.5))/res );\n"
 				"    lowp vec4 d = texture2D( uTex0, (iuv+vec2(1.5,1.5))/res );\n"
 				"														\n"
-				"    fragColor = (a + b + c + d) / 4.0;					\n"
+				"    fragColor.rgb = (a + b + c + d).rgb / 4.0;					\n"
+				"    fragColor.a = 1.0;					\n"
 				;
 		}
 	};
