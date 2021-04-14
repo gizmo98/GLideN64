@@ -13,6 +13,7 @@
 #include <Config.h>
 #include "glsl_SpecialShadersFactory.h"
 #include "glsl_ShaderPart.h"
+#include "glsl_DitherFilter.h"
 #include "glsl_FXAA.h"
 #include "glsl_Utils.h"
 
@@ -927,7 +928,7 @@ namespace glsl {
 
 	/*---------------DitherFilterShader-------------*/
 
-	typedef SpecialShader<VertexShaderTexturedRect, DitherFilter> DitherFilterShaderBase;
+	typedef SpecialShader<DitherFilterVertexShader, DitherFilterFragmentShader> DitherFilterShaderBase;
 
 	class DitherFilterShader : public DitherFilterShaderBase
 	{
@@ -940,10 +941,25 @@ namespace glsl {
 			: DitherFilterShaderBase(_glinfo, _useProgram, _vertexHeader, _fragmentHeader, _fragmentEnd)
 		{
 			m_useProgram->useProgram(m_program);
-			const int texLoc = glGetUniformLocation(GLuint(m_program), "uTex0");
-			glUniform1i(texLoc, 0);
+			m_textureSizeLoc = glGetUniformLocation(GLuint(m_program), "uTextureSize");
 			m_useProgram->useProgram(graphics::ObjectHandle::null);
 		}
+
+		void activate() override {
+			DitherFilterShaderBase::activate();
+			FrameBuffer * pBuffer = frameBufferList().findBuffer(*REG.VI_ORIGIN & 0xffffff);
+			if (pBuffer != nullptr && pBuffer->m_pTexture != nullptr &&
+				(m_width != pBuffer->m_pTexture->width || m_height != pBuffer->m_pTexture->height)) {
+				m_width = pBuffer->m_pTexture->width;
+				m_height = pBuffer->m_pTexture->height;
+				glUniform2f(m_textureSizeLoc, GLfloat(m_width), GLfloat(m_height));
+			}
+		}
+
+	private:
+		int m_textureSizeLoc = -1;
+		u16 m_width = 0;
+		u16 m_height = 0;
 	};
 
 	/*---------------TexrectDrawerShader-------------*/
