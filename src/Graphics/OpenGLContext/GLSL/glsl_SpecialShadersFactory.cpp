@@ -549,38 +549,6 @@ namespace glsl {
 		}
 	};
 
-	class DitherFilter : public ShaderPart
-	{
-	public:
-		DitherFilter(const opengl::GLInfo & _glinfo)
-		{
-			m_part =
-				"IN mediump vec2 vTexCoord0;							\n"
-				"uniform sampler2D uTex0;								\n"
-				"OUT lowp vec4 fragColor;								\n"
-				"void main ()											\n"
-				"{														\n"
-				"    mediump vec2 res = vec2(textureSize( uTex0 , 0 ));	\n"
-				"														\n"
-				"    // Normalized pixel coordinates (from 0 to 1)		\n"
-				"    mediump vec2 uv = vTexCoord0;					\n"
-				"														\n"
-				"    mediump vec2 st = uv*res - 0.5;					\n"
-				"														\n"
-				"    mediump vec2 iuv = floor( st );					\n" 
-				"														\n"
-				"    lowp vec4 a = texture2D( uTex0, (iuv+vec2(0.5,0.5))/res );\n"
-				"    lowp vec4 b = texture2D( uTex0, (iuv+vec2(1.5,0.5))/res );\n"
-				"    lowp vec4 c = texture2D( uTex0, (iuv+vec2(0.5,1.5))/res );\n"
-				"    lowp vec4 d = texture2D( uTex0, (iuv+vec2(1.5,1.5))/res );\n"
-				"														\n"
-				"    fragColor.rgb = (a + b + c + d).rgb / 4.0;					\n"
-				"    fragColor.a = 1.0;					\n"
-				;
-		}
-	};
-
-
 	/*---------------TextDrawerShaderPart-------------*/
 
 	class TextDraw : public ShaderPart
