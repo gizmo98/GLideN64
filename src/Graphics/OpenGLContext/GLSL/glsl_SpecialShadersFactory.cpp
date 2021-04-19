@@ -909,6 +909,8 @@ namespace glsl {
 			: DitherFilterShaderBase(_glinfo, _useProgram, _vertexHeader, _fragmentHeader, _fragmentEnd)
 		{
 			m_useProgram->useProgram(m_program);
+			const int texLoc = glGetUniformLocation(GLuint(m_program), "uTex0");
+			glUniform1i(texLoc, 0);
 			m_textureSizeLoc = glGetUniformLocation(GLuint(m_program), "uTextureSize");
 			m_useProgram->useProgram(graphics::ObjectHandle::null);
 		}
